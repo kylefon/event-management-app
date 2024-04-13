@@ -7,6 +7,7 @@ export default function EditCustomer({ data }) {
 
     const [displayStyle, setDisplayStyle] = useState("none");
 
+    // modal open and close functions 
     const openModal = () => {
         setDisplayStyle("block");
     };
@@ -15,14 +16,14 @@ export default function EditCustomer({ data }) {
         setDisplayStyle("none");
     };
 
+    // reset input field after pressing close button
+    const closeButton = () => {
+        setcustomername(data.customer_name);
+        seteventdate(data.event_date);
+        setphone(data.phone);
+    }
 
-// // When the user clicks anywhere outside of the modal, close it
-// window.onclick = function(event) {
-//   if (event.target == modal) {
-//     modal.style.display = "none";
-//   }
-// }
-
+    // formats date to yyyy-mm-dd
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         const year = date.getFullYear();
@@ -51,16 +52,13 @@ export default function EditCustomer({ data }) {
     return (
         <>
             <button id="myBtn" onClick={openModal}>Edit</button>
-            <div id="myModal" class="modal" style={ {display : displayStyle} }>
+            <div id="myModal" class="modal" style={ {display : displayStyle} } onClick={closeModal}>
                 <div class="modal-content">
                 <div class="modal-header">
-                    <span class="close" onClick={closeModal} >&times;</span>
-                    <h2>Modal Header</h2>
+                    <span class="close" onClick={() => {closeModal(); closeButton(); }} >&times;</span>
+                    <h2>Edit Customer Details</h2>
                 </div>
                 <div class="modal-body">
-                    {/* <input type="text" placeholder="Name" value={ customer_name } onChange={e => setCustomer_name(e.target.value)}/>
-                    <input type="date" placeholder="Event Date" value = { event_date } onChange={e => setdate(e.target.value)}/>
-                    <input type="text" placeholder="Contact" value = { phone } onChange={e => setphone(e.target.value)}/> */}
                     <input type="text" placeholder="Name" value={ customer_name } onChange={e => setcustomername(e.target.value)}/>
                     <input type="date" placeholder="Event Date" value = { formatDate(event_date) } onChange={e => seteventdate(e.target.value)}/>
                     <input type="text" placeholder="Contact" value = { phone } onChange={e => setphone(e.target.value)}/> 
