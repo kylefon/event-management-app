@@ -4,7 +4,7 @@ export default function InputOrder() {
     const [order_name, setordername] = useState("")
     const [quantity, setquantity] = useState("")
 
-    onSubmitForm = async e => {
+    const onSubmitForm = async e => {
         e.preventDefault();
         try {
             const body = { order_name, quantity};
@@ -14,7 +14,8 @@ export default function InputOrder() {
                 body: JSON.stringify(body)
             })        
 
-            console.log(response);
+            window.location = "/";
+
             setordername("");
             setquantity("");
         } catch (error) {
