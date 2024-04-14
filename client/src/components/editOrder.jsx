@@ -3,7 +3,6 @@ import React, { useState } from "react";
 export default function EditOrder({ orderData }) {
     const [order_name, setordername] = useState(orderData.order_name);
     const [quantity, setquantity] = useState(orderData.quantity);
-    const [customer_id, setcustomerid] = useState(orderData.customer_id);
 
     const [displayStyle, setDisplayStyle] = useState("none");
 

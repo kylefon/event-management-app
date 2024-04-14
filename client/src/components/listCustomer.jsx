@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from "react";
+import { useNavigate } from "react-router-dom";
 import EditCustomer from "./editCustomer";
 
 
 export default function ListCustomers() {
 
     const [customerData, setcustomerdata] = useState([])
+    const navigate = useNavigate();
 
     const deleteCustomer = async (id) => {
         try {
@@ -44,6 +46,10 @@ export default function ListCustomers() {
         return `${year}-${month}-${day}`;
     };
 
+    const orderPath = (id) => {
+        navigate(`/order/${id}`);
+    }
+
 
     return (
         <>
@@ -62,7 +68,7 @@ export default function ListCustomers() {
                         <td>{data.customer_name}</td>
                         <td>{formatDate(data.event_date)}</td>
                         <td>{data.phone}</td>
-                        <td><button>Orders</button></td>
+                        <td><button onClick={() => orderPath(data.customer_id)}>Orders</button></td>
                         <td><EditCustomer data={data}/></td>
                         <td><button onClick={() => deleteCustomer(data.customer_id)}>Delete</button></td>
                     </tr>

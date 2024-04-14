@@ -75,10 +75,10 @@ app.delete("/customers/:id", async(req,res) => {
 //create order 
 app.post("/orders", async (req, res) => {
     try {
-        const { order_name, quantity, customer_id } = req.body;
+        const { order_name, quantity, fk_customer_id } = req.body;
         const newOrder = await pool.query(
-            "INSERT INTO event_order (order_name, quantity,customer_id) VALUES ($1, $2, $3) RETURNING *",
-            [order_name, quantity, customer_id]
+            "INSERT INTO event_order (order_name, quantity, fk_customer_id) VALUES ($1, $2, $3) RETURNING *",
+            [order_name, quantity, fk_customer_id]
         );
 
         res.json(newOrder.rows[0]);

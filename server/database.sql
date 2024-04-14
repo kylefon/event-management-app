@@ -11,7 +11,7 @@ CREATE TABLE event_order (
     event_id SERIAL PRIMARY KEY,
     order_name VARCHAR(100),
     quantity INT,
-    customer_id INT REFERENCES customer(customer_id)
+    fk_customer_id INT REFERENCES customer(customer_id)
 );
 
 

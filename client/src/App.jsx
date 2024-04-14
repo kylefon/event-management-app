@@ -17,7 +17,7 @@ function App() {
                     </>
                 }>  
                 </Route>
-                <Route exact path='/order' element={<InputOrder />}></Route> 
+                <Route exact path='/order/:id' element={<InputOrder />}></Route> 
             </Routes>
         </BrowserRouter>
             
