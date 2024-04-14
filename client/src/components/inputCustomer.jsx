@@ -32,8 +32,8 @@ export default function InputCustomer() {
             <h1 className="text-center mt-5">Cater Order</h1>
             <form onSubmit={onSubmitForm}>
                 <input type="text" placeholder="Name" value={ customer_name } onChange={e => setCustomer_name(e.target.value)}/>
-                <input type="date" placeholder="Event Date" value = { event_date } onChange={e => setdate(e.target.value)}/>
                 <input type="text" placeholder="Contact" value = { phone } onChange={e => setphone(e.target.value)}/>
+                <input type="date" placeholder="Event Date" value = { event_date } onChange={e => setdate(e.target.value)}/>
                 <button className="btn btn-success">Add</button>
             </form>
         </>

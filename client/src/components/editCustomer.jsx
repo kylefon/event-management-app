@@ -60,8 +60,8 @@ export default function EditCustomer({ data }) {
                 </div>
                 <div class="modal-body">
                     <input type="text" placeholder="Name" value={ customer_name } onChange={e => setcustomername(e.target.value)}/>
-                    <input type="date" placeholder="Event Date" value = { formatDate(event_date) } onChange={e => seteventdate(e.target.value)}/>
                     <input type="text" placeholder="Contact" value = { phone } onChange={e => setphone(e.target.value)}/> 
+                    <input type="date" placeholder="Event Date" value = { formatDate(event_date) } onChange={e => seteventdate(e.target.value)}/>
                 </div>
                 <div class="modal-footer">
                     <button onClick={(data) => { updateData(data); closeModal(); } }>Done</button>
