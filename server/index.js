@@ -53,21 +53,31 @@ app.put("/customers/:id", async(req,res) => {
     }
 });
 
-//delete customer
+//delete customer (with event_order)
 
 app.delete("/customers/:id", async(req,res) => {
     try {
         const { id } = req.params;
-        const deletecustomer = await pool.query(
-            "DELETE FROM customer WHERE customer_id = $1", 
+
+        // Delete orders associated with the customer
+        await pool.query(
+            "DELETE FROM event_order WHERE fk_customer_id = $1",
             [id]
         );
-        res.json("Customer deleted");
 
+        // Then delete the customer
+        await pool.query(
+            "DELETE FROM customer WHERE customer_id = $1",
+            [id]
+        );
+
+        res.json("Customer and associated orders deleted");
     } catch (error) {
         console.error(error.message);
+        res.status(500).json({ error: "An error occurred while deleting customer and associated orders" });
     }
 });
+
 
 
 // ORDER ROUTES
@@ -94,7 +104,7 @@ app.get("/orders/:customer_id", async(req,res) => {
     try{
         const {customer_id} = req.params;
         const allorders = await pool.query(
-            "SELECT * FROM event_order WHERE customer_id = $1", 
+            "SELECT * FROM event_order WHERE fk_customer_id = $1", 
             [customer_id]
         );
         res.json(allorders.rows);
@@ -110,7 +120,7 @@ app.put("/orders/:id", async(req,res) => {
         const { id } = req.params;
         const { order_name, quantity } = req.body;
         const updateorder = await pool.query(
-            'UPDATE customer SET customer_name = $1, quantity = $2 WHERE event_id = $3',
+            'UPDATE event_order SET order_name = $1, quantity = $2 WHERE event_id = $3',
             [order_name, quantity, id]
         );
 
@@ -122,12 +132,12 @@ app.put("/orders/:id", async(req,res) => {
 
 //delete order
 
-app.delete("/orders/:id", async(req,res) => {
+app.delete("/orders/:customer_id/:id", async(req,res) => {
     try {
-        const { id } = req.params;
-        const deletecustomer = await pool.query(
-            "DELETE FROM customer WHERE event_id = $1", 
-            [id]
+        const { customer_id, id } = req.params;
+        const deleteorder = await pool.query(
+            "DELETE FROM event_order WHERE fk_customer_id = $1 AND event_id = $2", 
+            [customer_id, id]
         );
         res.json("Order deleted");
 

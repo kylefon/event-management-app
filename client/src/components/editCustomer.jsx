@@ -52,7 +52,7 @@ export default function EditCustomer({ data }) {
     return (
         <>
             <button id="myBtn" onClick={openModal}>Edit</button>
-            <div id="myModal" class="modal" style={ {display : displayStyle} } onClick={closeModal}>
+            <div id="myModal" class="modal" style={ {display : displayStyle} }>
                 <div class="modal-content">
                 <div class="modal-header">
                     <span class="close" onClick={() => {closeModal(); closeButton(); }} >&times;</span>

@@ -17,10 +17,6 @@ export default function InputCustomer() {
             });
 
             window.location = "/";
-
-            setCustomer_name("");
-            setdate("");
-            setphone("");
             
         } catch (error) {
             console.error(error.message);
