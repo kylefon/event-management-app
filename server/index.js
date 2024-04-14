@@ -7,7 +7,7 @@ const pool = require("./db");
 app.use(cors());
 app.use(express.json());
 
-//ROUTES
+// CUSTOMER ROUTES
 
 //create customer
 app.post("/customers", async (req, res) => {
@@ -25,44 +25,12 @@ app.post("/customers", async (req, res) => {
     }
 });
 
-//create order 
-app.post("/orders", async (req, res) => {
-    try {
-        const { order_name, quantity, fk_customer_id } = req.body;
-        const newOrder = await pool.query(
-            "INSERT INTO event_order (order_name, quantity,fk_customer_id) VALUES ($1, $2, $3) RETURNING *",
-            [order_name, quantity, fk_customer_id]
-        );
-
-        res.json(newOrder.rows[0]);
-        
-    } catch (error) {
-        console.error(error.message);
-    }
-});
-
-
 //get all customers
 
 app.get("/customers", async(req,res) => {
     try{
         const allcustomers = await pool.query("SELECT * FROM customer");
         res.json(allcustomers.rows);
-    } catch (error) {
-        console.error(error.message)
-    }
-});
-
-//get orders
-
-app.get("/orders/:customer_id", async(req,res) => {
-    try{
-        const {customer_id} = req.params;
-        const allorders = await pool.query(
-            "SELECT * FROM event_order WHERE fk_customer_id = $1", 
-            [customer_id]
-        );
-        res.json(allorders.rows);
     } catch (error) {
         console.error(error.message)
     }
@@ -85,23 +53,6 @@ app.put("/customers/:id", async(req,res) => {
     }
 });
 
-//update orders
-
-app.put("/orders/:id", async(req,res) => {
-    try {
-        const { id } = req.params;
-        const { order_name, event_date } = req.body;
-        const updateorder = await pool.query(
-            'UPDATE customer SET customer_name = $1, event_date = $2 WHERE event_id = $3',
-            [order_name, event_date, id]
-        );
-
-        res.json("Order updated"); 
-    } catch (error) {
-        console.error(error.message)
-    }
-});
-
 //delete customer
 
 app.delete("/customers/:id", async(req,res) => {
@@ -115,6 +66,57 @@ app.delete("/customers/:id", async(req,res) => {
 
     } catch (error) {
         console.error(error.message);
+    }
+});
+
+
+// ORDER ROUTES
+
+//create order 
+app.post("/orders", async (req, res) => {
+    try {
+        const { order_name, quantity, customer_id } = req.body;
+        const newOrder = await pool.query(
+            "INSERT INTO event_order (order_name, quantity,customer_id) VALUES ($1, $2, $3) RETURNING *",
+            [order_name, quantity, customer_id]
+        );
+
+        res.json(newOrder.rows[0]);
+        
+    } catch (error) {
+        console.error(error.message);
+    }
+});
+
+//get orders
+
+app.get("/orders/:customer_id", async(req,res) => {
+    try{
+        const {customer_id} = req.params;
+        const allorders = await pool.query(
+            "SELECT * FROM event_order WHERE customer_id = $1", 
+            [customer_id]
+        );
+        res.json(allorders.rows);
+    } catch (error) {
+        console.error(error.message)
+    }
+});
+
+//update orders
+
+app.put("/orders/:id", async(req,res) => {
+    try {
+        const { id } = req.params;
+        const { order_name, quantity } = req.body;
+        const updateorder = await pool.query(
+            'UPDATE customer SET customer_name = $1, quantity = $2 WHERE event_id = $3',
+            [order_name, quantity, id]
+        );
+
+        res.json("Order updated"); 
+    } catch (error) {
+        console.error(error.message)
     }
 });
 
