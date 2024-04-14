@@ -10,4 +10,5 @@ A web application for streamlining the process of managing events and their orde
 ## Roadmap 
 - [ ] Display order table 
 - [ ] Order functionalities (create, read, update and delete)
-- [ ] Genereate order receipt 
+- [ ] Genereate order receipt
+- [ ] Imrpove CSS styling 
