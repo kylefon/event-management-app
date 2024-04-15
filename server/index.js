@@ -12,10 +12,10 @@ app.use(express.json());
 //create customer
 app.post("/customers", async (req, res) => {
     try {
-        const { customer_name, event_date, phone } = req.body;
+        const { customer_name, event_date, address_name } = req.body;
         const newCustomer = await pool.query(
-            "INSERT INTO customer (customer_name, event_date, phone) VALUES ($1, $2, $3) RETURNING *",
-            [customer_name, event_date, phone]
+            "INSERT INTO customer (customer_name, event_date, address_name) VALUES ($1, $2, $3) RETURNING *",
+            [customer_name, event_date, address_name]
         );
 
         res.json(newCustomer.rows[0]);
@@ -36,15 +36,29 @@ app.get("/customers", async(req,res) => {
     }
 });
 
+//get single customer data
+
+app.get("/customers/:id", async(req,res) => {
+    try{
+        const {id} = req.params;
+        const oneCustomer = await pool.query("SELECT * FROM customer where customer_id = $1",
+        [id]
+    );
+    res.json(oneCustomer.rows);
+    } catch(error) {
+        console.error(error.message)
+    }
+})
+
 //update customer
 
 app.put("/customers/:id", async(req,res) => {
     try {
         const { id } = req.params;
-        const { customer_name, event_date, phone } = req.body;
+        const { customer_name, event_date, address_name } = req.body;
         const updatecustomer = await pool.query(
-            'UPDATE customer SET customer_name = $1, event_date = $2, phone = $3 WHERE customer_id = $4',
-            [customer_name, event_date, phone, id]
+            'UPDATE customer SET customer_name = $1, event_date = $2, address_name = $3 WHERE customer_id = $4',
+            [customer_name, event_date, address_name, id]
         );
 
         res.json("Customer updated"); 
