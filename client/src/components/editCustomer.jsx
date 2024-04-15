@@ -3,7 +3,7 @@ import React, { useState } from "react";
 export default function EditCustomer({ data }) {
     const [customer_name, setcustomername] = useState(data.customer_name);
     const [event_date, seteventdate] = useState(data.event_date);
-    const [phone, setphone] = useState(data.phone);
+    const [address_name, setaddressname] = useState(data.address_name);
 
     const [displayStyle, setDisplayStyle] = useState("none");
 
@@ -20,7 +20,7 @@ export default function EditCustomer({ data }) {
     const closeButton = () => {
         setcustomername(data.customer_name);
         seteventdate(data.event_date);
-        setphone(data.phone);
+        setaddressname(data.address_name);
     }
 
     // formats date to yyyy-mm-dd
@@ -35,7 +35,7 @@ export default function EditCustomer({ data }) {
     const updateData = async (e) => {
         e.preventDefault();
         try {
-            const body = {customer_name, event_date, phone};
+            const body = {customer_name, event_date, address_name};
             const response = await fetch(`http://localhost:5000/customers/${data.customer_id}`, {
                 method: "PUT",
                 headers: {"Content-Type": "application/json"},
@@ -60,7 +60,7 @@ export default function EditCustomer({ data }) {
                 </div>
                 <div class="modal-body">
                     <input type="text" placeholder="Name" value={ customer_name } onChange={e => setcustomername(e.target.value)}/>
-                    <input type="text" placeholder="Contact" value = { phone } onChange={e => setphone(e.target.value)}/> 
+                    <input type="text" placeholder="Address" value = { address_name } onChange={e => setaddressname(e.target.value)}/> 
                     <input type="date" placeholder="Event Date" value = { formatDate(event_date) } onChange={e => seteventdate(e.target.value)}/>
                 </div>
                 <div class="modal-footer">

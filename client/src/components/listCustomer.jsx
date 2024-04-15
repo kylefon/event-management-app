@@ -52,29 +52,29 @@ export default function ListCustomers() {
 
 
     return (
-        <>
-        <table>
-            <thead>
-                <td>Name</td>
-                <td>Event Date</td>
-                <td>Contact</td>
-                <td>Orders</td>
-                <td>Edit</td>
-                <td>Delete</td>
-            </thead>
-            <tbody>
-                {customerData.map(data => (
-                    <tr key={data.customer_id}>
-                        <td>{data.customer_name}</td>
-                        <td>{formatDate(data.event_date)}</td>
-                        <td>{data.phone}</td>
-                        <td><button onClick={() => orderPath(data.customer_id)}>Orders</button></td>
-                        <td><EditCustomer data={data}/></td>
-                        <td><button onClick={() => deleteCustomer(data.customer_id)}>Delete</button></td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
-        </>
+        <div id="tableContainer">
+            <table>
+                <thead>
+                    <td>Event Name</td>
+                    <td>Date</td>
+                    <td>Address</td>
+                    <td>Order</td>
+                    <td>Edit</td>
+                    <td>Delete</td>
+                </thead>
+                <tbody>
+                    {customerData.map(data => (
+                        <tr key={data.customer_id}>
+                            <td>{data.customer_name}</td>
+                            <td>{formatDate(data.event_date)}</td>
+                            <td>{data.address_name}</td>
+                            <td><button onClick={() => orderPath(data.customer_id)}>Orders</button></td>
+                            <td><EditCustomer data={data}/></td>
+                            <td><button onClick={() => deleteCustomer(data.customer_id)}>Delete</button></td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
     )
 };

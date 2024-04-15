@@ -4,12 +4,12 @@ export default function InputCustomer() {
 
     const [customer_name, setCustomer_name] = useState("");
     const [event_date, setdate] = useState("")
-    const [phone, setphone] = useState("")
+    const [address_name, setaddressname] = useState("")
 
     const onSubmitForm = async e => {
         e.preventDefault();
         try {
-            const body = {customer_name, event_date, phone};
+            const body = {customer_name, event_date, address_name};
             const response = await fetch("http://localhost:5000/customers", {
                 method: "POST",
                 headers: {"Content-Type": "application/json" },
@@ -26,12 +26,14 @@ export default function InputCustomer() {
     return (
         <>
             <h1 className="text-center mt-5">Cater Order</h1>
-            <form onSubmit={onSubmitForm}>
-                <input type="text" placeholder="Name" value={ customer_name } onChange={e => setCustomer_name(e.target.value)}/>
-                <input type="text" placeholder="Contact" value = { phone } onChange={e => setphone(e.target.value)}/>
-                <input type="date" placeholder="Event Date" value = { event_date } onChange={e => setdate(e.target.value)}/>
-                <button className="btn btn-success">Add</button>
-            </form>
+            <div id="InputCustomerContainer">
+                <form onSubmit={onSubmitForm}>
+                    <input type="text" placeholder="Name" value={ customer_name } onChange={e => setCustomer_name(e.target.value)}/>
+                    <input type="text" placeholder="Address" value = { address_name } onChange={e => setaddressname(e.target.value)}/>
+                    <input type="date" placeholder="Event Date" value = { event_date } onChange={e => setdate(e.target.value)}/>
+                    <button className="btn btn-success">Add</button>
+                </form>
+            </div>
         </>
     );
 };
