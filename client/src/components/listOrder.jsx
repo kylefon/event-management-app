@@ -1,14 +1,11 @@
 import React, {useEffect, useState} from "react";
-import { useParams } from "react-router-dom";
- 
-
+import { useParams, useNavigate } from "react-router-dom";
 import EditOrder from "./editOrder";
-
 
 export default function ListOrder() {
     const {id} = useParams();
-
     const [orderData, setorderdata] = useState([]);
+    const navigate = useNavigate();
 
     const deleteOrder = async (customerID, deleteID) => {
         try {
@@ -37,33 +34,37 @@ export default function ListOrder() {
         }
     };
 
-
     useEffect(()=>{
         getOrderInfo(id);
     }, [id]);
 
-    console.log(id)
+    const orderPath = () => {
+        navigate(`/`);
+    }
 
     return (
         <>
-        <table>
-            <thead>
-                <td>Order</td>
-                <td>Quantity</td>
-                <td>Edit</td>
-                <td>Delete</td>
-            </thead>
-            <tbody>
-                {orderData.map(data => (
-                    <tr key={data.event_id}>
-                        <td>{data.order_name}</td>
-                        <td>{data.quantity}</td>
-                        <td><EditOrder orderData={data}/></td>
-                        <td><button onClick={() => deleteOrder(id, data.event_id)}>Delete</button></td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+            <div id="tableContainer">
+                <table>
+                    <thead>
+                        <td>Order</td>
+                        <td>Quantity</td>
+                        <td>Edit</td>
+                        <td>Delete</td>
+                    </thead>
+                    <tbody>
+                        {orderData.map(data => (
+                            <tr key={data.event_id}>
+                                <td>{data.order_name}</td>
+                                <td>{data.quantity}</td>
+                                <td><EditOrder orderData={data}/></td>
+                                <td><button onClick={() => deleteOrder(id, data.event_id)}>Delete</button></td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            <button onClick={orderPath}>Back</button>
         </>
     )
 };

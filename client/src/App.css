@@ -1,6 +1,36 @@
-table, tr, td {
-    border: 1px solid black;
-    padding: 10px;
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+#root {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+
+form {
+  margin: 10px;
+}
+
+#tableContainer {
+  width: 75%;
+}
+
+table, td, th {
+  border: 1px solid;
+}
+
+thead {
+  font-weight: 900;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  text-align: center;
 }
 
 /* The Modal (background) */

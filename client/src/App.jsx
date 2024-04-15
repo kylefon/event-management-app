@@ -5,7 +5,6 @@ import InputCustomer from './components/inputCustomer'
 import ListCustomers from './components/listCustomer'
 import InputOrder from './components/inputOrder'
 import ListOrder from './components/listOrder'
-// import ListOrder from './components/listOrder'
 
 function App() {
     return (
