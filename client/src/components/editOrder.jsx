@@ -8,19 +8,11 @@ export default function EditOrder({ orderData }) {
 
     const [displayStyle, setDisplayStyle] = useState("none");
 
-    // modal open and close functions 
-    const openModal = () => {
-        setDisplayStyle("block");
-    };
-
-    const closeModal = () => {
-        setDisplayStyle("none");
-    };
-
     // reset input field after pressing close button
     const closeButton = () => {
         setordername(orderData.order_name);
         setquantity(orderData.quantity);
+        setDisplayStyle("none");
     } 
 
     const updateData = async (e, updateID) => {
@@ -34,6 +26,8 @@ export default function EditOrder({ orderData }) {
             })
 
             window.location = `/order/${updateID}`;
+            setDisplayStyle("none");
+
         } catch (error) {
             console.error(error.message);
         }
@@ -41,11 +35,11 @@ export default function EditOrder({ orderData }) {
 
     return (
         <>
-            <button id="myBtn" onClick={openModal}>Edit</button>
+            <button id="myBtn" onClick={() => setDisplayStyle("block")}>Edit</button>
             <div id="myModal" class="modal" style={ {display : displayStyle}} >
                 <div class="modal-content">
                 <div class="modal-header">
-                    <span class="close" onClick={() => {closeModal(); closeButton(); }} >&times;</span>
+                    <span class="close" onClick={() => { closeButton() }} >&times;</span>
                     <h2>Edit Order Details</h2>
                 </div>
                 <div class="modal-body">
@@ -53,7 +47,7 @@ export default function EditOrder({ orderData }) {
                     <input type="text" placeholder="Quantity" value = { quantity } onChange={e => setquantity(e.target.value)}/> 
                 </div>
                 <div class="modal-footer">
-                    <button onClick={(orderData) => { updateData(orderData, id); closeModal(); } }>Done</button>
+                    <button onClick={(orderData) => { updateData(orderData, id) } }>Done</button>
                 </div>
                 </div>
             </div>

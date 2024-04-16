@@ -7,25 +7,17 @@ export default function EditCustomer({ data }) {
 
     const [displayStyle, setDisplayStyle] = useState("none");
 
-    // modal open and close functions 
-    const openModal = () => {
-        setDisplayStyle("block");
-    };
-
-    const closeModal = () => {
-        setDisplayStyle("none");
-    };
-
     // reset input field after pressing close button
     const closeButton = () => {
         setcustomername(data.customer_name);
         seteventdate(data.event_date);
         setaddressname(data.address_name);
+        setDisplayStyle("none");
     }
 
     // formats date to yyyy-mm-dd
     const formatDate = (dateString) => {
-        const date = new Date(dateString);
+        const date = new Date(dateString);        
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
@@ -42,7 +34,9 @@ export default function EditCustomer({ data }) {
                 body: JSON.stringify(body)
             })
 
-        window.location = "/";            
+        window.location = "/";     
+        setDisplayStyle("none");
+       
         } catch (error) {
             console.error(error.message);
         }
@@ -51,11 +45,11 @@ export default function EditCustomer({ data }) {
 
     return (
         <>
-            <button id="myBtn" onClick={openModal}>Edit</button>
+            <button id="myBtn" onClick={() => setDisplayStyle("block")}>Edit</button>
             <div id="myModal" class="modal" style={ {display : displayStyle} }>
                 <div class="modal-content">
                 <div class="modal-header">
-                    <span class="close" onClick={() => {closeModal(); closeButton(); }} >&times;</span>
+                    <span class="close" onClick={closeButton} >&times;</span>
                     <h2>Edit Customer Details</h2>
                 </div>
                 <div class="modal-body">
@@ -64,7 +58,7 @@ export default function EditCustomer({ data }) {
                     <input type="date" placeholder="Event Date" value = { formatDate(event_date) } onChange={e => seteventdate(e.target.value)}/>
                 </div>
                 <div class="modal-footer">
-                    <button onClick={(data) => { updateData(data); closeModal(); } }>Done</button>
+                    <button onClick={(data) => updateData(data)}>Done</button>
                 </div>
                 </div>
             </div>
