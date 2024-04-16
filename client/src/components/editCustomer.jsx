@@ -24,10 +24,18 @@ export default function EditCustomer({ data }) {
         return `${year}-${month}-${day}`;
     };
 
+    const dateWithoutTimezone = (date) => {
+        const tzoffset = date.getTimezoneOffset() * 60000; //offset in milliseconds
+        const withoutTimezone = new Date(date.valueOf() - tzoffset)
+          .toISOString()
+          .slice(0, -1);
+        return withoutTimezone;
+      };
+
     const updateData = async (e) => {
         e.preventDefault();
         try {
-            const body = {customer_name, event_date, address_name};
+            const body = {customer_name, event_date: dateWithoutTimezone(new Date(event_date)), address_name};
             const response = await fetch(`http://localhost:5000/customers/${data.customer_id}`, {
                 method: "PUT",
                 headers: {"Content-Type": "application/json"},
