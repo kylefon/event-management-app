@@ -65,6 +65,7 @@ export default function InputOrder() {
                     <input type="number" placeholder="Quantity" value = { quantity } onChange={e => setquantity(e.target.value)}/>
                     <button className="btn btn-success">Add</button>
                 </form>
+                <button >Get Receipt</button>
             </div>
         </>
     );

@@ -50,6 +50,10 @@ export default function ListCustomers() {
         navigate(`/order/${id}`);
     }
 
+    const testReceiptPath = (datePath) => {
+        navigate(`/receipt/${datePath}`)
+    }
+
 
     return (
         <div id="tableContainer">
@@ -75,6 +79,7 @@ export default function ListCustomers() {
                     ))}
                 </tbody>
             </table>
+            <button onClick={() => testReceiptPath('2024-04-21')}>Get Receipt</button>
         </div>
     )
 };

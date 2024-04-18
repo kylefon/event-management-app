@@ -5,6 +5,7 @@ import InputCustomer from './components/inputCustomer'
 import ListCustomers from './components/listCustomer'
 import InputOrder from './components/inputOrder'
 import ListOrder from './components/listOrder'
+import GetReceipt from './components/getReceipt'
 
 function App() {
     return (
@@ -23,6 +24,9 @@ function App() {
                         <ListOrder/>
                     </>
                 }></Route> 
+                <Route exact path='/receipt/:date' element={
+                    <GetReceipt />
+                }></Route>
             </Routes>
         </BrowserRouter>
             

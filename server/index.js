@@ -127,6 +127,22 @@ app.get("/orders/:customer_id", async(req,res) => {
     }
 });
 
+// Get orders from specific date 
+
+app.get("/receipts/:date", async(req,res) => {
+    try {
+        const {date} = req.params;
+        const dateOrder = await pool.query(
+            "SELECT event_order.*, customer.* FROM event_order JOIN customer on event_order.fk_customer_id = customer.customer_id WHERE event_date = $1 ORDER BY customer_name", 
+            [date]
+        );
+
+        res.json(dateOrder.rows);
+    } catch (error) {
+        console.error(error.message)
+    }
+});
+
 //update orders
 
 app.put("/orders/:id", async(req,res) => {
@@ -159,6 +175,7 @@ app.delete("/orders/:customer_id/:id", async(req,res) => {
         console.error(error.message);
     }
 });
+
 
 app.listen(5000, () => {
     console.log("server has started on port 5000")
