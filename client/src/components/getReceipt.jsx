@@ -28,6 +28,10 @@ export default function GetReceipt() {
         navigate(`/`);
     }
 
+    const backToInput = () => {
+        navigate(`/receipt`)
+    }
+
     // Function to group orders by customer name
     const groupOrdersByCustomer = () => {
         const groupedOrders = {};
@@ -43,9 +47,9 @@ export default function GetReceipt() {
 
     if (!order_info || order_info.length === 0) {
         return (
-            <div>
+            <div className="incorrectDateContainer">
                 <h1>No Orders</h1>
-                <button onClick={orderPath}>Back</button>
+                <button onClick={backToInput}>Back</button>
             </div>
         )
     }
@@ -53,14 +57,14 @@ export default function GetReceipt() {
     const groupedOrders = groupOrdersByCustomer();
 
     return (
-        <>
-            <div>
-                <h1>{date}</h1>
+        <div className="receiptContainer">
+            <div className="dateHeader">
+                <h1>Events for {date}</h1>
             </div>
             {Object.entries(groupedOrders).map(([customerName, orders]) => (
-                <div key={customerName}>
+                <div key={customerName} className="receiptInfoContainer">
                     <h2>{customerName}</h2>
-                    <p>Event Address: {orders[0].address_name}</p>
+                    <p>{orders[0].address_name}</p>
 
                     <div id="tableContainer">
                         <table>
@@ -83,6 +87,6 @@ export default function GetReceipt() {
                 </div>
             ))}
             <button onClick={orderPath}>Back</button>
-        </>
+        </div>
     )
 }

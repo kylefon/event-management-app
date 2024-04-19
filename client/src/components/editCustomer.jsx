@@ -52,7 +52,7 @@ export default function EditCustomer({ data }) {
 
 
     return (
-        <>
+        <div class="modalContainer">
             <button id="myBtn" onClick={() => setDisplayStyle("block")}>Edit</button>
             <div id="myModal" class="modal" style={ {display : displayStyle} }>
                 <div class="modal-content">
@@ -70,6 +70,6 @@ export default function EditCustomer({ data }) {
                 </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }

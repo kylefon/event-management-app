@@ -25,7 +25,7 @@ export default function InputCustomer() {
 
     return (
         <>
-            <h1 className="text-center mt-5">Cater Order</h1>
+            <h1>Cater Order</h1>
             <div id="InputCustomerContainer">
                 <form onSubmit={onSubmitForm}>
                     <input type="text" placeholder="Name" value={ customer_name } onChange={e => setCustomer_name(e.target.value)}/>

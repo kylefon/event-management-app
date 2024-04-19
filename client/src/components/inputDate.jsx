@@ -23,11 +23,13 @@ export default function InputDate() {
     }    
 
     return (
-        <>
+        <div className="inputDateContainer">
             <h1>Input Date</h1>
-            <input type="date" placeholder="Event Date"  value={ event_date } onChange={e => setdate(e.target.value)}/>
-            <button onClick={getDatePath}>Get Receipt</button>
+            <div>
+                <input type="date" placeholder="Event Date"  value={ event_date } onChange={e => setdate(e.target.value)}/>
+                <button onClick={getDatePath}>Get Receipt</button>
+            </div>
             <button onClick={orderPath}>Back</button>
-        </>
+        </div>
     )
 }
