@@ -41,10 +41,22 @@ export default function GetReceipt() {
         return groupedOrders;
     };
 
+    if (!order_info || order_info.length === 0) {
+        return (
+            <div>
+                <h1>No Orders</h1>
+                <button onClick={orderPath}>Back</button>
+            </div>
+        )
+    }
+
     const groupedOrders = groupOrdersByCustomer();
 
     return (
         <>
+            <div>
+                <h1>{date}</h1>
+            </div>
             {Object.entries(groupedOrders).map(([customerName, orders]) => (
                 <div key={customerName}>
                     <h2>{customerName}</h2>
