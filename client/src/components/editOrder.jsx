@@ -10,7 +10,7 @@ import {
     DialogTitle,
     DialogTrigger,
   } from "@/components/ui/dialog"
-  import { Input } from "./ui/input";
+import { Input } from "./ui/input";
 import { Label } from "@radix-ui/react-label";
 
 
@@ -49,7 +49,7 @@ export default function EditOrder({ orderData }) {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button>Edit</Button>
+                <Button variant="secondary">Edit</Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>

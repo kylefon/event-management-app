@@ -30,10 +30,6 @@ export default function GetReceipt() {
         navigate(`/`);
     }
 
-    const backToInput = () => {
-        navigate(`/receipt`)
-    }
-
     // Function to group orders by customer name
     const groupOrdersByCustomer = () => {
         const groupedOrders = {};
@@ -49,9 +45,9 @@ export default function GetReceipt() {
 
     if (!order_info || order_info.length === 0) {
         return (
-            <div >
+            <div className="flex flex-col items-center w-full space-y-8 mt-16">
                 <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">No Orders</h1>
-                <Button onClick={backToInput}>Back</Button>
+                <Button className="w-3/4" onClick={orderPath}>Back</Button>
             </div>
         )
     }
@@ -60,16 +56,16 @@ export default function GetReceipt() {
 
     return (
         <div className="flex flex-col space-y-4 mt-8 text-center w-full items-center">
-            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">Events for {date}</h1>
-            <div className="w-3/4 justify-item">
+            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mb-6 border-b">Events for {date}</h1>
+            <div className="w-3/4 justify-item space-y-6">
                 {Object.entries(groupedOrders).map(([customerName, orders]) => (
                     <div key={customerName}>
-                        <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">{customerName}</h2>
+                        <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">{customerName}</h2>
                         <p className="leading-7 [&:not(:first-child)]:mt-6">Address: {orders[0].address_name}</p>
                         <div>
                             <Table>
                                 <TableHeader>
-                                    <TableRow>
+                                    <TableRow className="border-t">
                                         <TableHead className="text-center">Order</TableHead>
                                         <TableHead className="text-center">Quantity</TableHead>
                                     </TableRow>

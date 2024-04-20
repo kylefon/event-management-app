@@ -50,7 +50,7 @@ export default function ListOrder() {
             <div className="flex justify-items-center flex-col space-y-4 w-3/4">
                 <Table className="text-center">
                     <TableHeader>
-                        <TableRow>
+                        <TableRow className="border-t">
                             <TableHead className="text-center">Order</TableHead>
                             <TableHead className="text-center">Quantity</TableHead>
                             <TableHead className="text-center">Edit</TableHead>
@@ -63,7 +63,7 @@ export default function ListOrder() {
                                 <TableCell>{data.order_name}</TableCell>
                                 <TableCell>{data.quantity}</TableCell>
                                 <TableCell><EditOrder orderData={data}/></TableCell>
-                                <TableCell><Button onClick={() => deleteOrder(id, data.event_id)}>Delete</Button></TableCell>
+                                <TableCell><Button variant="destructive" onClick={() => deleteOrder(id, data.event_id)}>Delete</Button></TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

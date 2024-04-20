@@ -64,30 +64,9 @@ export default function EditCustomer({ data }) {
 
 
     return (
-        // <div className="modalContainer">
-        //     <Button id="myBtn" onClick={() => setDisplayStyle("block")}>Edit</Button>
-        //     <div id="myModal" className="modal" style={ {display : displayStyle} }>
-        //         <div className="modal-content">
-        //         <div className="modal-header">
-        //             <span className="close" onClick={closeButton} >&times;</span>
-        //             <h2>Edit Customer Details</h2>
-        //         </div>
-        //         <div className="modal-body">
-        //             <Input type="text" placeholder="Name" value={ customer_name } onChange={e => setcustomername(e.target.value)}/>
-        //             <Input type="text" placeholder="Address" value = { address_name } onChange={e => setaddressname(e.target.value)}/> 
-        //             <Input type="date" placeholder="Event Date" value = { formatDate(event_date) } onChange={e => seteventdate(e.target.value)}/>
-        //         </div>
-        //         <div className="modal-footer">
-        //             {/* <button onClick={(data) => updateData(data)}>Done</button> */}
-        //             <Button onClick={(data) => updateData(data)}>Done</Button>
-        //         </div>
-        //         </div>
-        //     </div>
-        // </div>
-
         <Dialog>
             <DialogTrigger asChild>
-                <Button>Edit</Button>
+                <Button variant="secondary">Edit</Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>

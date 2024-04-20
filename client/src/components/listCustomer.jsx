@@ -1,47 +1,54 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import EditCustomer from "./editCustomer";
 import { Button } from "./ui/button";
-import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell  } from "./ui/table";
-
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "./ui/table";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "./ui/input";
+import { Label } from "@radix-ui/react-label";
 
 export default function ListCustomers() {
 
-    const [customerData, setcustomerdata] = useState([])
+    const [customerData, setCustomerData] = useState([]);
+    const [eventDate, setEventDate] = useState("");
     const navigate = useNavigate();
 
     const deleteCustomer = async (id) => {
         try {
-            const deleteCustomer = await fetch(`http://localhost:5000/customers/${id}`, {
+            await fetch(`http://localhost:5000/customers/${id}`, {
                 method: "DELETE"
             });
-
-            setcustomerdata(customerData.filter(data => data.customer_id !== id));
-        
+            setCustomerData(customerData.filter(data => data.customer_id !== id));
         } catch (error) {
-            console.log(error.message);    
+            console.log(error.message);
         }
     }
+
     const getCustomerInfo = async () => {
         try {
-            //get info
             const response = await fetch("http://localhost:5000/customers");
-            //parse info
-            const jsonData = await response.json()    
-            console.log(jsonData)
-
-            setcustomerdata(jsonData); 
+            const jsonData = await response.json();
+            console.log(jsonData);
+            setCustomerData(jsonData);
         } catch (error) {
             console.log(error.message);
         }
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         getCustomerInfo();
     }, []);
 
     const formatDate = (dateString) => {
-        const date = new Date(dateString);        
+        const date = new Date(dateString);
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
@@ -52,18 +59,17 @@ export default function ListCustomers() {
         navigate(`/order/${id}`);
     }
 
-    const getDatePath = () => {
-        navigate(`/receipt`)
+    const handleSaveDate = () => {
+        navigate(`/receipt/${formatDate(eventDate)}`);
     }
-
 
     return (
         <div className="flex justify-items-center flex-col space-y-4 w-3/4">
             <div>
                 <Table className="text-center">
                     <TableHeader>
-                        <TableRow>
-                            <TableHead className="text-center">Event Name</TableHead> 
+                        <TableRow className="border-t">
+                            <TableHead className="text-center">Event Name</TableHead>
                             <TableHead className="text-center">Date</TableHead>
                             <TableHead className="text-center">Address</TableHead>
                             <TableHead className="text-center">Order</TableHead>
@@ -77,15 +83,39 @@ export default function ListCustomers() {
                                 <TableCell>{data.customer_name}</TableCell>
                                 <TableCell>{formatDate(data.event_date)}</TableCell>
                                 <TableCell>{data.address_name}</TableCell>
-                                <TableCell><Button onClick={() => orderPath(data.customer_id)}>Orders</Button></TableCell>
-                                <TableCell><EditCustomer data={data}/></TableCell>
-                                <TableCell><Button onClick={() => deleteCustomer(data.customer_id)}>Delete</Button></TableCell>
+                                <TableCell><Button variant="outline" onClick={() => orderPath(data.customer_id)}>Orders</Button></TableCell>
+                                <TableCell><EditCustomer data={data} /></TableCell>
+                                <TableCell><Button variant="destructive" onClick={() => deleteCustomer(data.customer_id)}>Delete</Button></TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </div>
-            <Button onClick={getDatePath}>Get Receipt</Button>
+            <Dialog>
+                <DialogTrigger asChild>
+                    <Button>Get Receipt</Button>
+                </DialogTrigger>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Input Date</DialogTitle>
+                        <DialogDescription>
+                            Get all orders based on the date.
+                        </DialogDescription>
+                    </DialogHeader>
+
+                    <div className="grid gap-4 py-4">
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="date" className="text-right">Date</Label>
+                            <Input type="date" id="date" className="col-span-3" placeholder="Event Date" value={eventDate} onChange={e => setEventDate(e.target.value)} />
+                        </div>
+                    </div>
+
+                    <DialogFooter>
+                        <Button onClick={handleSaveDate}>Save</Button>
+                    </DialogFooter>
+
+                </DialogContent>
+            </Dialog>
         </div>
     )
 };
