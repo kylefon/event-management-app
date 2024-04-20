@@ -26,10 +26,10 @@ export default function InputCustomer() {
     };
 
     return (
-        <div className="flex flex-col space-y-4 mt-8">
-            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-center">Cater Order</h1>
+        <div className="flex flex-col space-y-4">
+            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-center">Event Management</h1>    
             <div id="InputCustomerContainer" className="flex flex-row items-center justify-center space-x-4">
-                <form onSubmit={onSubmitForm} className="flex items-center justify-center">
+                <form onSubmit={onSubmitForm} className="flex items-center justify-center space-x-2">
                     <Input type="text" placeholder="Name" value={customer_name} onChange={e => setCustomer_name(e.target.value)} />
                     <Input type="text" placeholder="Address" value={address_name} onChange={e => setaddressname(e.target.value)} />
                     <Input type="date" placeholder="Event Date" value={event_date} onChange={e => setdate(e.target.value)} />

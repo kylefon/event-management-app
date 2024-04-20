@@ -56,14 +56,14 @@ export default function InputOrder() {
             <div>
                 {customerData.map(data =>(
                     <div className="text-center">
-                        <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mt-6">{data.customer_name}</h1>
+                        <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">{data.customer_name}</h1>
                         <p className="leading-7 [&:not(:first-child)]:mt-6">Event Address: {data.address_name}</p>
                         <p className="leading-7 [&:not(:second-child)]:mt-6">Date: {formatDate(data.event_date)}</p>
                     </div>
                 ))}
             </div>
             <div id="InputOrderContainer">
-                <form onSubmit={onSubmitForm} className="flex items-center justify-center">
+                <form onSubmit={onSubmitForm} className="flex items-center justify-center space-x-2">
                     <Input type="text" placeholder="Order" value={ order_name } onChange={e => setordername(e.target.value)}/>
                     <Input type="number" placeholder="Quantity" value = { quantity } onChange={e => setquantity(e.target.value)}/>
                     <Button>Add</Button>

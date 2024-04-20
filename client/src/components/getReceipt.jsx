@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell  } from "./ui/table";
 import { Button } from "./ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
 
 export default function GetReceipt() {
     const {date} = useParams();
@@ -55,15 +56,18 @@ export default function GetReceipt() {
     const groupedOrders = groupOrdersByCustomer();
 
     return (
-        <div className="flex flex-col space-y-4 mt-8 text-center w-full items-center">
-            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mb-6 border-b">Events for {date}</h1>
-            <div className="w-3/4 justify-item space-y-6">
+        <Card className="w-3/4 m-8">
+            <CardHeader>
+                <CardTitle className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-center">All Orders</CardTitle>
+                <CardDescription className="text-center">Events for {date}</CardDescription>
+            </CardHeader>
+            <CardContent>
                 {Object.entries(groupedOrders).map(([customerName, orders]) => (
                     <div key={customerName}>
-                        <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">{customerName}</h2>
-                        <p className="leading-7 [&:not(:first-child)]:mt-6">Address: {orders[0].address_name}</p>
+                        <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight mt-4 text-center">{customerName}</h2>
+                        <CardDescription className="text-center">Address: {orders[0].address_name}</CardDescription>
                         <div>
-                            <Table>
+                            <Table className="border-b">
                                 <TableHeader>
                                     <TableRow className="border-t">
                                         <TableHead className="text-center">Order</TableHead>
@@ -73,8 +77,8 @@ export default function GetReceipt() {
                                 <TableBody>
                                     {orders.map(order => (
                                         <tr key={order.event_id}>
-                                            <TableCell>{order.order_name}</TableCell>
-                                            <TableCell>{order.quantity}</TableCell>
+                                            <TableCell className="text-center">{order.order_name}</TableCell>
+                                            <TableCell className="text-center">{order.quantity}</TableCell>
                                         </tr>
                                     ))}
                                 </TableBody>
@@ -82,8 +86,10 @@ export default function GetReceipt() {
                         </div>
                     </div>
                 ))}
-                <Button onClick={orderPath} className="w-3/4">Back</Button>
-            </div>
-        </div>
+            </CardContent>
+            <CardFooter>
+                <Button onClick={orderPath} className="w-full">Back</Button>
+            </CardFooter>
+        </Card>
     )
 }
