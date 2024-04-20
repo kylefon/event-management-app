@@ -1,6 +1,9 @@
 import React, {useEffect, useState} from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import EditOrder from "./editOrder";
+import { Button } from "./ui/button";
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell  } from "./ui/table";
+
 
 export default function ListOrder() {
     const {id} = useParams();
@@ -44,27 +47,29 @@ export default function ListOrder() {
 
     return (
         <>
-            <div id="tableContainer">
-                <table>
-                    <thead>
-                        <td>Order</td>
-                        <td>Quantity</td>
-                        <td>Edit</td>
-                        <td>Delete</td>
-                    </thead>
-                    <tbody>
+            <div className="flex justify-items-center flex-col space-y-4 w-3/4">
+                <Table className="text-center">
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead className="text-center">Order</TableHead>
+                            <TableHead className="text-center">Quantity</TableHead>
+                            <TableHead className="text-center">Edit</TableHead>
+                            <TableHead className="text-center">Delete</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
                         {orderData.map(data => (
-                            <tr key={data.event_id}>
-                                <td>{data.order_name}</td>
-                                <td>{data.quantity}</td>
-                                <td><EditOrder orderData={data}/></td>
-                                <td><button onClick={() => deleteOrder(id, data.event_id)}>Delete</button></td>
-                            </tr>
+                            <TableRow key={data.event_id}>
+                                <TableCell>{data.order_name}</TableCell>
+                                <TableCell>{data.quantity}</TableCell>
+                                <TableCell><EditOrder orderData={data}/></TableCell>
+                                <TableCell><Button onClick={() => deleteOrder(id, data.event_id)}>Delete</Button></TableCell>
+                            </TableRow>
                         ))}
-                    </tbody>
-                </table>
+                    </TableBody>
+                </Table>
             </div>
-            <button onClick={orderPath}>Back</button>
+            <Button onClick={orderPath} className="w-3/4">Back</Button>
         </>
     )
 };

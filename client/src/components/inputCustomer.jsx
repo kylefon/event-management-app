@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button";
 
 export default function InputCustomer() {
 
@@ -24,16 +26,16 @@ export default function InputCustomer() {
     };
 
     return (
-        <>
-            <h1>Cater Order</h1>
-            <div id="InputCustomerContainer">
-                <form onSubmit={onSubmitForm}>
-                    <input type="text" placeholder="Name" value={ customer_name } onChange={e => setCustomer_name(e.target.value)}/>
-                    <input type="text" placeholder="Address" value = { address_name } onChange={e => setaddressname(e.target.value)}/>
-                    <input type="date" placeholder="Event Date" value = { event_date } onChange={e => setdate(e.target.value)}/>
-                    <button className="btn btn-success">Add</button>
+        <div className="flex flex-col space-y-4 mt-8">
+            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-center">Cater Order</h1>
+            <div id="InputCustomerContainer" className="flex flex-row items-center justify-center space-x-4">
+                <form onSubmit={onSubmitForm} className="flex items-center justify-center">
+                    <Input type="text" placeholder="Name" value={customer_name} onChange={e => setCustomer_name(e.target.value)} />
+                    <Input type="text" placeholder="Address" value={address_name} onChange={e => setaddressname(e.target.value)} />
+                    <Input type="date" placeholder="Event Date" value={event_date} onChange={e => setdate(e.target.value)} />
+                    <Button>Add</Button>
                 </form>
             </div>
-        </>
+        </div>
     );
 };

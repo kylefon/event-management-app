@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell  } from "./ui/table";
+import { Button } from "./ui/button";
 
 export default function GetReceipt() {
     const {date} = useParams();
@@ -47,9 +49,9 @@ export default function GetReceipt() {
 
     if (!order_info || order_info.length === 0) {
         return (
-            <div className="incorrectDateContainer">
-                <h1>No Orders</h1>
-                <button onClick={backToInput}>Back</button>
+            <div >
+                <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">No Orders</h1>
+                <Button onClick={backToInput}>Back</Button>
             </div>
         )
     }
@@ -57,36 +59,35 @@ export default function GetReceipt() {
     const groupedOrders = groupOrdersByCustomer();
 
     return (
-        <div className="receiptContainer">
-            <div className="dateHeader">
-                <h1>Events for {date}</h1>
-            </div>
-            {Object.entries(groupedOrders).map(([customerName, orders]) => (
-                <div key={customerName} className="receiptInfoContainer">
-                    <h2>{customerName}</h2>
-                    <p>{orders[0].address_name}</p>
-
-                    <div id="tableContainer">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Order</th>
-                                    <th>Quantity</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {orders.map(order => (
-                                    <tr key={order.event_id}>
-                                        <td>{order.order_name}</td>
-                                        <td>{order.quantity}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+        <div className="flex flex-col space-y-4 mt-8 text-center w-full items-center">
+            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">Events for {date}</h1>
+            <div className="w-3/4 justify-item">
+                {Object.entries(groupedOrders).map(([customerName, orders]) => (
+                    <div key={customerName}>
+                        <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">{customerName}</h2>
+                        <p className="leading-7 [&:not(:first-child)]:mt-6">Address: {orders[0].address_name}</p>
+                        <div>
+                            <Table>
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead className="text-center">Order</TableHead>
+                                        <TableHead className="text-center">Quantity</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {orders.map(order => (
+                                        <tr key={order.event_id}>
+                                            <TableCell>{order.order_name}</TableCell>
+                                            <TableCell>{order.quantity}</TableCell>
+                                        </tr>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </div>
                     </div>
-                </div>
-            ))}
-            <button onClick={orderPath}>Back</button>
+                ))}
+                <Button onClick={orderPath} className="w-3/4">Back</Button>
+            </div>
         </div>
     )
 }

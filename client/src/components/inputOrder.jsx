@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button";
 
 export default function InputOrder() {
     const { id } = useParams();
@@ -53,19 +55,19 @@ export default function InputOrder() {
         <>
             <div>
                 {customerData.map(data =>(
-                    <>
-                        <h1>{data.customer_name}</h1>
-                        <p>{formatDate(data.event_date)}</p>
-                    </>
+                    <div className="text-center">
+                        <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mt-6">{data.customer_name}</h1>
+                        <p className="leading-7 [&:not(:first-child)]:mt-6">Event Address: {data.address_name}</p>
+                        <p className="leading-7 [&:not(:second-child)]:mt-6">Date: {formatDate(data.event_date)}</p>
+                    </div>
                 ))}
             </div>
             <div id="InputOrderContainer">
-                <form onSubmit={onSubmitForm}>
-                    <input type="text" placeholder="Order" value={ order_name } onChange={e => setordername(e.target.value)}/>
-                    <input type="number" placeholder="Quantity" value = { quantity } onChange={e => setquantity(e.target.value)}/>
-                    <button className="btn btn-success">Add</button>
+                <form onSubmit={onSubmitForm} className="flex items-center justify-center">
+                    <Input type="text" placeholder="Order" value={ order_name } onChange={e => setordername(e.target.value)}/>
+                    <Input type="number" placeholder="Quantity" value = { quantity } onChange={e => setquantity(e.target.value)}/>
+                    <Button>Add</Button>
                 </form>
-                {/* <button >Get Receipt</button> */}
             </div>
         </>
     );

@@ -1,5 +1,18 @@
 import React, { useState } from "react";
+import { Button } from "./ui/button";
 import { useParams } from "react-router-dom";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+  } from "@/components/ui/dialog"
+  import { Input } from "./ui/input";
+import { Label } from "@radix-ui/react-label";
+
 
 export default function EditOrder({ orderData }) {
     const { id } = useParams();
@@ -34,23 +47,32 @@ export default function EditOrder({ orderData }) {
     }
 
     return (
-        <div class="modalContainer">
-            <button id="myBtn" onClick={() => setDisplayStyle("block")}>Edit</button>
-            <div id="myModal" class="modal" style={ {display : displayStyle}} >
-                <div class="modal-content">
-                <div class="modal-header">
-                    <span class="close" onClick={() => { closeButton() }} >&times;</span>
-                    <h2>Edit Order Details</h2>
+        <Dialog>
+            <DialogTrigger asChild>
+                <Button>Edit</Button>
+            </DialogTrigger>
+            <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>Edit Order Details</DialogTitle>                    
+                <DialogDescription>
+                    Make changes to the order. Click save when you're done. 
+                </DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                    <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="name" className="text-right">Name</Label>
+                    <Input type="text" id="name" className="col-span-3" placeholder="Order" value={ order_name } onChange={e => setordername(e.target.value)}/>
+                    </div>
+                    <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="quantity" className="text-right">Name</Label>
+                        <Input type="text" id="quantity" className="col-span-3" placeholder="Quantity" value = { quantity } onChange={e => setquantity(e.target.value)}/> 
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <input type="text" placeholder="Order" value={ order_name } onChange={e => setordername(e.target.value)}/>
-                    <input type="text" placeholder="Quantity" value = { quantity } onChange={e => setquantity(e.target.value)}/> 
-                </div>
-                <div class="modal-footer">
-                    <button onClick={(orderData) => { updateData(orderData, id) } }>Done</button>
-                </div>
-                </div>
-            </div>
-        </div>
+
+                <DialogFooter>
+                    <Button onClick={(orderData) => { updateData(orderData, id) } }>Save</Button>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
     )
 }
