@@ -64,8 +64,8 @@ export default function EditOrder({ orderData }) {
                     <Input type="text" id="name" className="col-span-3" placeholder="Order" value={ order_name } onChange={e => setordername(e.target.value)}/>
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="quantity" className="text-right">Name</Label>
-                        <Input type="text" id="quantity" className="col-span-3" placeholder="Quantity" value = { quantity } onChange={e => setquantity(e.target.value)}/> 
+                        <Label htmlFor="quantity" className="text-right">Quantity</Label>
+                        <Input type="number" id="quantity" className="col-span-3" placeholder="Quantity" value = { quantity } onChange={e => setquantity(e.target.value)}/> 
                     </div>
                 </div>
 
